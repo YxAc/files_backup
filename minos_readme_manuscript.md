@@ -171,32 +171,32 @@ To set up a ZooKeeper cluster, just do the following two steps:
 
 * Install a ZooKeeper package to the tank server:
 
-      cd minos/client
-      ./deploy.sh install zookeeper dptst
+        cd minos/client
+        ./deploy.sh install zookeeper dptst
 
 * Bootstrap the cluster, this is only needed once when the cluster is setup for the first time:
 
-      ./deploy.sh bootstrap zookeeper dptst
+        ./deploy.sh bootstrap zookeeper dptst
 
 Here are some handy ways to manage the cluster:
 
 * Show the status of the ZooKeeper service:
 
-      ./deploy.sh show zookeeper dptst
+        ./deploy.sh show zookeeper dptst
 
 * Start/Stop/Restart the ZooKeeper cluster:
 
-      ./deploy.sh stop zookeeper dptst
-      ./deploy.sh start zookeeper dptst
-      ./deploy.sh restart zookeeper dptst
+        ./deploy.sh stop zookeeper dptst
+        ./deploy.sh start zookeeper dptst
+        ./deploy.sh restart zookeeper dptst
 
 * Clean up the ZooKeeper cluster:
 
-      ./deploy.sh cleanup zookeeper dptst
+        ./deploy.sh cleanup zookeeper dptst
 
 * Rolling update the ZooKeeper cluster:
 
-      ./deploy.sh rolling_update zookeeper dptst
+        ./deploy.sh rolling_update zookeeper dptst
 
 ### Configuring HDFS
 
