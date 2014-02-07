@@ -25,11 +25,11 @@ This is the dashboard system to display the status of all processes, where users
 
 This is the process management and monitoring system. [Supervisor](http://supervisord.org/) is an open source project, a client/server system that allows its users to monitor and control a number of processes on a UNIX-like operating system.
 
-Based on the version of supervisor-3.0b1, we extended Supervisor to support Minos. We implemented an RPC interface under the `deployment` directory, so that our deploy client can invoke the services supplied by supervisord. You can refer to `Install Supervisor` to learn how to install and use it.
+Based on the version of supervisor-3.0b1, we extended Supervisor to support Minos. We implemented an RPC interface under the `deployment` directory, so that our deploy client can invoke the services supplied by supervisord. You can refer to `Installing Supervisor` to learn how to install and use it.
 
 ## Tank
 
-This is a simple package management Django app server for our deployment tool. You can refer to `Install Tank` to learn how to install and use it.
+This is a simple package management Django app server for our deployment tool. You can refer to `Installing Tank` to learn how to install and use it.
 
 # Setting Up Minos on Centos/Ubuntu
 
@@ -56,9 +56,9 @@ All the Components of Minos run with its own virtual environment. So, before usi
     cd minos
     ./build.sh build
 
-Note: If you only use the Client component, this operation is enough. Then you can refer to `Using Client` to learn how to deploy and manage a cluster; If you want to use the current computer as the Tank server, you can refer to `Install Tank` to start it; Alternatively, if you want to setup a Supervisor or Owl in your computer, then refer to `Install Supervisor` and `Install Owl` respectively.
+Note: If you only use the Client component, this operation is enough. Then you can refer to `Using Client` to learn how to deploy and manage a cluster; If you want to use the current computer as the Tank server, you can refer to `Installing Tank` to start it; Alternatively, if you want to setup a Supervisor or Owl in your computer, then refer to `Installing Supervisor` and `Installing Owl` respectively.
 
-## Installing Tank - The Package Management Server
+## Installing Tank
 
 When setting up a cluster for the first time, you should set up a tank server first.  This only needs to be done once.
 
@@ -84,7 +84,7 @@ Note: When you start a specified component, it will check the environment and bu
     tank/: the main django directory
     templates/: the web page template directory
 
-## Installing Supervisor - The Process Control System
+## Installing Supervisor
 
 When deploying a Hadoop cluster for the first time, you need to set up `supervisord` on every production machine. This also needs to be done only once.
 
