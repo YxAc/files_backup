@@ -5,6 +5,7 @@
 Minos is a distributed deployment and monitoring system.  It was initially developed and used at [Xiaomi](http://www.xiaomi.com) to deploy and manage the Hadoop, HBase and ZooKeeper clusters used in the company.  Minos can be easily extended to support other systems, among which HDFS, YARN and Impala have been supported in the current release.
 
 # Components
+<img src="minos_structure.png"></img>
 
 The Minos system contains the following four components:
 
