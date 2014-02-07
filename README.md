@@ -5,7 +5,6 @@
 Minos is a distributed deployment and monitoring system.  It was initially developed and used at [Xiaomi](http://www.xiaomi.com) to deploy and manage the Hadoop, HBase and ZooKeeper clusters used in the company.  Minos can be easily extended to support other systems, among which HDFS, YARN and Impala have been supported in the current release.
 
 # Components
-<img src="minos_structure.png"></img>
 
 The Minos system contains the following four components:
 
@@ -13,6 +12,8 @@ The Minos system contains the following four components:
 2. Owl
 3. Supervisor
 4. Tank
+
+<img src="minos_structure.png"></img>
 
 ## Client
 
@@ -26,11 +27,13 @@ This is the dashboard system to display the status of all processes, where users
 
 This is the process management and monitoring system. [Supervisor](http://supervisord.org/) is an open source project, a client/server system that allows its users to monitor and control a number of processes on a UNIX-like operating system.
 
-Based on the version of supervisor-3.0b1, we extended Supervisor to support Minos. We implemented an RPC interface under the `deployment` directory, so that our deploy client can invoke the services supplied by supervisord. You can refer to `Installing Supervisor` to learn how to install and use it.
+Based on the version of supervisor-3.0b1, we extended Supervisor to support Minos. We implemented an RPC interface under the `deployment` directory, so that our deploy client can invoke the services supplied by supervisord.
+
+When deploying a Hadoop cluster for the first time, you need to set up `supervisord` on every production machine. This only needs to be done once. You can refer to `Installing Supervisor` to learn how to install and use it.
 
 ## Tank
 
-This is a simple package management Django app server for our deployment tool. You can refer to `Installing Tank` to learn how to install and use it.
+This is a simple package management Django app server for our deployment tool. When setting up a cluster for the first time, you should set up a tank server first. This also needs to be done only once. You can refer to `Installing Tank` to learn how to install and use it.
 
 # Setting Up Minos on Centos/Ubuntu
 
@@ -61,8 +64,6 @@ Note: If you only use the Client component, this operation is enough. Then you c
 
 ## Installing Tank
 
-When setting up a cluster for the first time, you should set up a tank server first.  This only needs to be done once.
-
 ### Run Tank
 
     cd minos
@@ -86,8 +87,6 @@ Note: When you start a specified component, it will check the environment and bu
     templates/: the web page template directory
 
 ## Installing Supervisor
-
-When deploying a Hadoop cluster for the first time, you need to set up `supervisord` on every production machine. This also needs to be done only once.
 
 ### Prerequisites
 
