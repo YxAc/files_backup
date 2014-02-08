@@ -13,7 +13,7 @@ The Minos system contains the following four components:
 3. Supervisor
 4. Tank
 
-<img src="minos_structure.png"></img>
+<img src="minos_structure.png" width="1000" height="700"></img>
 
 ## Client
 
@@ -261,7 +261,7 @@ After starting Owl, you can access the web interface of the Owl.  For example, i
 
     http://192.168.1.11:8088/
 
-### Stop Owl.
+### Stop Owl
 
     ./build.sh stop owl
 
@@ -286,3 +286,5 @@ After starting Owl, you can access the web interface of the Owl.  For example, i
 3. When setting up the stand-alone hbase on Ubuntu, you may fail to start it because of the `/etc/hosts` file. You can refer to <http://hbase.apache.org/book/quickstart.html#ftn.d2907e114> to fix the problem.
 
 4. When using the Minos client to install a service package, if you get an error of `socket.error: [Errno 101] Network is unreachable`, please check your tank server configuration in `deploy.cfg` file, you might miss it.
+
+Note: More advanced features, see the Minos wiki <https://github.com/XiaoMi/minos/wiki>
