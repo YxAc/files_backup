@@ -13,7 +13,7 @@ The Minos system contains the following four components:
 3. Supervisor
 4. Tank
 
-<img src="minos_structure.png" width="900" height="567"></img>
+<img src="minos_structure.png" width="800" height="500"></img>
 
 ## Client
 
