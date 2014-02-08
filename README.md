@@ -41,77 +41,66 @@ This is a simple package management Django app server for our deployment tool. W
 
 ### Install Python
 
-Make sure install Python 2.7 or later from source <http://www.python.org>. Using package management tool such as `yum` may get a lower version.
+Make sure install Python 2.7 or later from <http://www.python.org>.
 
 ### Install JDK
 
 Make sure that the Oracle Java Development Kit 6 is installed (not OpenJDK) from <http://www.oracle.com/technetwork/java/javase/downloads/index.html>, and that `JAVA_HOME` is set in your environment.
 
-## Clone the Minos repository
+## Building Minos
+
+### Clone the Minos repository
 
 To Using Minos, just check out the code on your production machine:
 
     git clone https://github.com/XiaoMi/minos.git
 
-## Building Minos
+### Build the virtual environment
 
 All the Components of Minos run with its own virtual environment. So, before using Minos, building the virtual environment firstly.
 
     cd minos
     ./build.sh build
 
-Note: If you only use the Client component, this operation is enough. Then you can refer to `Using Client` to learn how to deploy and manage a cluster; If you want to use the current computer as the Tank server, you can refer to `Installing Tank` to start it; Alternatively, if you want to setup a Supervisor or Owl in your computer, then refer to `Installing Supervisor` and `Installing Owl` respectively.
+Note: If you only use the Client component on your current machine, this operation is enough, then you can refer to `Using Client` to learn how to deploy and manage a cluster. If you want to use the current machine as a Tank server, you can refer to `Installing Tank` to learn how to do that. Similarly, if you want to use the current machine as a Owl server or a Supervisor server, you can refer to `Installing Owl` and `Installing Supervisor` respectively.
 
 ## Installing Tank
 
-### Run Tank
+### Start Tank
 
     cd minos
-    ./build.sh start tank --tank_ip x.x.x.x --tank_port xxx
+    ./build.sh start tank --tank_ip ${your_local_ip} --tank_port ${port_tank_will_listen}
 
-If you do not specify the `tank_ip` and `tank_port`, it will start tank server using `0.0.0.0` on `8000` port.
-
-Note: When you start a specified component, it will check the environment and build the prerequisites firstly and then start the boot program. This will take some time, especially the first time you start it.
+Note: If you do not specify the `tank_ip` and `tank_port`, it will start tank server using `0.0.0.0` on `8000` port.
 
 ### Stop Tank
 
     ./build.sh stop tank
 
-### Directories
-
-    data/: the data directory used to store the packages
-    package_server/: the package server django app directory
-    sqlite/: the sqlite database directory
-    static/: the static resources directory
-    tank/: the main django directory
-    templates/: the web page template directory
-
 ## Installing Supervisor
 
 ### Prerequisites
 
-Make sure you have intstalled `Tank` on some production machine.
+Make sure you have intstalled `Tank` on one of the production machines.
 
-### Run Supervisor
+### Start Supervisor
 
     cd minos
-    ./build.sh start supervisor --tank_ip x.x.x.x --tank_port xxx
+    ./build.sh start supervisor --tank_ip ${tank_server_ip} --tank_port ${tank_server_port}
 
-When starting supervisor for the first time, the `tank_ip` and `tank_port` must be specified. It will notify supervisord the address of package server.
+When starting supervisor for the first time, the `tank_ip` and `tank_port` must be specified.
 
-After starting supervisor on the destination machine, you can access the web interface of the supervisord.  For example, suppose the default port is 9001, and the production machine's ip is 192.168.1.11, you can access the following URL to view the processes managed by supervisord:
+After starting supervisor on the destination machine, you can access the web interface of the supervisord.  For example, if supervisord listens on port 9001, and the serving machine's IP address is 192.168.1.11, you can access the following URL to view the processes managed by supervisord:
 
     http://192.168.1.11:9001/
-
-Note: If you are not the first time to start supervisor on the machine, there is no need to specify the arguments `tank_ip` and `tank_port`.
 
 ### Stop Supervisor
 
     ./build.sh stop supervisor
 
-### Superlance
+### Monitor Processes
 
-[Superlance](https://pypi.python.org/pypi/superlance) is a package of plug-in utilities for monitoring and controlling processes that run under supervisor.
+We use Superlance to monitor processes. [Superlance](https://pypi.python.org/pypi/superlance) is a package of plug-in utilities for monitoring and controlling processes that run under supervisor.
 
 We integrate `superlance-0.7` to our supervisor system, and use the crashmail tool to monitor all processes.  When a process exits unexpectedly, crashmail will send an alert email to a mailing list that is configurable.
 
@@ -259,61 +248,20 @@ Configure the clusters you want to monitor with owl in `minos/config/owl/collect
     # url for collecotr, usually JMX url
     metric_url=/jmx?qry=Hadoop:*
 
-Note: Some other configurations such as `owl monitor http port` and `opentsdb port` are set in `minos/build/minos_config.py`. You can change the default port for port conflicts.
+Note: Some other configurations such as `owl monitor http port` and `opentsdb port` are set in `minos/build/minos_config.py`. You can change the default port for avoiding port conflicts.
 
-### Run Owl
+### Start Owl
 
     cd minos
-    ./build.sh start owl --local_ip x.x.x.x
+    ./build.sh start owl --local_ip ${your_local_ip}
 
-When starting owl, the argument `local_ip` is necessary especially you have multiple network cards. The `local_ip` will be used for making opentsdb address. Actually, if you chose to use a remote mysql server, it also would be used to set access for owl database.
-
-After starting Owl on the destination machine, you can access the web interface of the Owl.  For example, suppose the default port is 8088, and the machine's ip is 192.168.1.11, you can access the following URL to view the processes monitored by Owl:
+After starting Owl, you can access the web interface of the Owl.  For example, if Owl listens on port 8088, and the machine's IP address is 192.168.1.11, you can access the following URL to view the Owl web interface:
 
     http://192.168.1.11:8088/
-
-Note: If you want to monitor the quota status, you can start owl with `--quota_updater`.
 
 ### Stop Owl.
 
     ./build.sh stop owl
-
-### Attention
-
-All the arguments need to specify are required for building the component when you firstly start one. After that, there is no longer required whenever you start/stop it.
-
-### Using a real HBase cluster in Owl
-
-If you want to use a real hbase cluster, you can build and start owl with `--skip_setup_hbase` to skip setup the default stand-alone hbase. Besides, some other work needs to do for deploying your opentsdb.
-
-#### Create hbase table
-
-    cd minos/build/download/opentsdb
-    env COMPRESSION=NONE HBASE_HOME=path/to/hbase-cluster ./src/create_table.sh
-
-In regard to the path to your real hbase-cluster, you can use the Client component to pack a usable package such as:
-
-    cd minos/client
-    ./deploy.sh pack hbase $hbase_cluster_name
-
-Then the usable hbase package would be generated at `client/packages/`
-
-#### Start the opentsdb
-
-    cd minos/build/download/opentsdb
-    tsdtmp=${TMPDIR-'/tmp'}/tsd
-    mkdir -p "$tsdtmp"
-    nohup ./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp" --zkquorum="$your_zookeeper_quorum" --zkbasedir="/hbase/$hbase_cluster_name" 1>opentsdb.out 2>&1 &
-
-The `zkquorum` is a comma-separated list of hosts serving your zookeeper quorum just like `ip1:port,ip2:port,ip3:port`.
-
-#### Start opentsdb collector
-
-    cd minos/config/opentsdb
-    vim metrics_collector_config.py
-    $opentsdb_extra_args = '--zkquorum=xxx --zkbasedir=xxx'
-    cd ../../opentsdb
-    nohup ./collector.sh &
 
 # FAQ
 
