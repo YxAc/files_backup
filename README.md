@@ -213,6 +213,8 @@ You can run `./deploy.sh --help` to see the detailed help messages.
 
 ## Installing Owl
 
+Owl must be installed on the machine that you also use the `Client` component, they both use the same set of cluster configuration files.
+
 ### Prerequisites
 
 #### Install Gnuplot
@@ -265,12 +267,12 @@ After starting Owl, you can access the web interface of the Owl.  For example, i
 
 # FAQ
 
-1. When installing Mysql-python, you may get an error of "_mysql.c:44:23: error: my_config.h: No such file or directory (centos)" or "EnvironmentError: mysql_config not found (ubuntu)". As mysql_config is part of mysql-devel, installing mysql-devel allows the installation of Mysql-python. So you may need to install it.
+1. When installing Mysql-python, you may get an error of `_mysql.c:44:23: error: my_config.h: No such file or directory (centos)` or `EnvironmentError: mysql_config not found (ubuntu)`. As mysql_config is part of mysql-devel, installing mysql-devel allows the installation of Mysql-python. So you may need to install it.
 
         ubuntu: sudo apt-get install libmysqlclient-dev
         centos: sudo yum install mysql-devel
 
-2. When installing twisted, you may get an error of "CompressionError: bz2 module is not available" and compile appears:
+2. When installing twisted, you may get an error of `CompressionError: bz2 module is not available` and compile appears:
 
         Python build finished, but the necessary bits to build these modules were not found:
         _sqlite3           _tkinter           bsddb185
@@ -283,4 +285,4 @@ After starting Owl, you can access the web interface of the Owl.  For example, i
 
 3. When setting up the stand-alone hbase on Ubuntu, you may fail to start it because of the `/etc/hosts` file. You can refer to <http://hbase.apache.org/book/quickstart.html#ftn.d2907e114> to fix the problem.
 
-4. When using the Minos client to install a service package, if you get an error of "socket.error: [Errno 101] Network is unreachable", please check your tank server configuration in `deploy.cfg` file, you might miss it.
+4. When using the Minos client to install a service package, if you get an error of `socket.error: [Errno 101] Network is unreachable`, please check your tank server configuration in `deploy.cfg` file, you might miss it.
