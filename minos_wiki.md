@@ -1,7 +1,5 @@
 <img src="minos.png" width="200" height="80"></img>
 
-[TOC]
-
 # What is Minos
 
 Minos is a distributed deployment and monitoring system.  It was initially developed and used at [Xiaomi](http://www.xiaomi.com) to deploy and manage the Hadoop, HBase and ZooKeeper clusters used in the company.  Minos can be easily extended to support other systems, among which HDFS, YARN and Impala have been supported in the current release.
@@ -15,7 +13,7 @@ The Minos system contains the following four components:
 3. Supervisor
 4. Tank
 
-<img src="minos_structure.png" width="800" height="490"></img>
+<img src="minos_structure.png"></img>
 
 ## Client
 
@@ -43,66 +41,77 @@ This is a simple package management Django app server for our deployment tool. W
 
 ### Install Python
 
-Make sure install Python 2.7 or later from <http://www.python.org>.
+Make sure install Python 2.7 or later from source <http://www.python.org>. Using package management tool such as `yum` may get a lower version.
 
 ### Install JDK
 
 Make sure that the Oracle Java Development Kit 6 is installed (not OpenJDK) from <http://www.oracle.com/technetwork/java/javase/downloads/index.html>, and that `JAVA_HOME` is set in your environment.
 
-## Building Minos
-
-### Clone the Minos repository
+## Clone the Minos repository
 
 To Using Minos, just check out the code on your production machine:
 
     git clone https://github.com/XiaoMi/minos.git
 
-### Build the virtual environment
+## Building Minos
 
 All the Components of Minos run with its own virtual environment. So, before using Minos, building the virtual environment firstly.
 
     cd minos
     ./build.sh build
 
-> **Note:** If you only use the Client component on your current machine, this operation is enough, then you can refer to `Using Client` to learn how to deploy and manage a cluster. If you want to use the current machine as a Tank server, you can refer to `Installing Tank` to learn how to do that. Similarly, if you want to use the current machine as a Owl server or a Supervisor server, you can refer to `Installing Owl` and `Installing Supervisor` respectively.
+Note: If you only use the Client component, this operation is enough. Then you can refer to `Using Client` to learn how to deploy and manage a cluster; If you want to use the current computer as the Tank server, you can refer to `Installing Tank` to start it; Alternatively, if you want to setup a Supervisor or Owl in your computer, then refer to `Installing Supervisor` and `Installing Owl` respectively.
 
 ## Installing Tank
 
-### Start Tank
+### Run Tank
 
     cd minos
-    ./build.sh start tank --tank_ip ${your_local_ip} --tank_port ${port_tank_will_listen}
+    ./build.sh start tank --tank_ip x.x.x.x --tank_port xxx
 
-> **Note:** If you do not specify the `tank_ip` and `tank_port`, it will start tank server using `0.0.0.0` on `8000` port.
+If you do not specify the `tank_ip` and `tank_port`, it will start tank server using `0.0.0.0` on `8000` port.
+
+Note: When you start a specified component, it will check the environment and build the prerequisites firstly and then start the boot program. This will take some time, especially the first time you start it.
 
 ### Stop Tank
 
     ./build.sh stop tank
 
+### Directories
+
+    data/: the data directory used to store the packages
+    package_server/: the package server django app directory
+    sqlite/: the sqlite database directory
+    static/: the static resources directory
+    tank/: the main django directory
+    templates/: the web page template directory
+
 ## Installing Supervisor
 
 ### Prerequisites
 
-Make sure you have intstalled `Tank` on one of the production machines.
+Make sure you have intstalled `Tank` on some production machine.
 
-### Start Supervisor
+### Run Supervisor
 
     cd minos
-    ./build.sh start supervisor --tank_ip ${tank_server_ip} --tank_port ${tank_server_port}
+    ./build.sh start supervisor --tank_ip x.x.x.x --tank_port xxx
 
-When starting supervisor for the first time, the `tank_ip` and `tank_port` must be specified.
+When starting supervisor for the first time, the `tank_ip` and `tank_port` must be specified. It will notify supervisord the address of package server.
 
-After starting supervisor on the destination machine, you can access the web interface of the supervisord.  For example, if supervisord listens on port 9001, and the serving machine's IP address is 192.168.1.11, you can access the following URL to view the processes managed by supervisord:
+After starting supervisor on the destination machine, you can access the web interface of the supervisord.  For example, suppose the default port is 9001, and the production machine's ip is 192.168.1.11, you can access the following URL to view the processes managed by supervisord:
 
     http://192.168.1.11:9001/
+
+Note: If you are not the first time to start supervisor on the machine, there is no need to specify the arguments `tank_ip` and `tank_port`.
 
 ### Stop Supervisor
 
     ./build.sh stop supervisor
 
-### Monitor Processes
+### Superlance
 
-We use Superlance to monitor processes. [Superlance](https://pypi.python.org/pypi/superlance) is a package of plug-in utilities for monitoring and controlling processes that run under supervisor.
+[Superlance](https://pypi.python.org/pypi/superlance) is a package of plug-in utilities for monitoring and controlling processes that run under supervisor.
 
 We integrate `superlance-0.7` to our supervisor system, and use the crashmail tool to monitor all processes.  When a process exits unexpectedly, crashmail will send an alert email to a mailing list that is configurable.
 
@@ -122,7 +131,7 @@ We configure crashmail as an auto-started process.  It will start working automa
     stderr_logfile=crashmailbatch.stderr
     autostart=true
 
-> **Note:** The related configuration information such as the server `port` or `username` is set in `minos/build/template/supervisord.conf.tmpl`, if you don't want to use the default value, change it.
+Note: The related configuration information such as the server `port` or `username` is set in `minos/build/template/supervisord.conf.tmpl`, if you don't want to use the default value, change it.
 
 
 ## Using Client
@@ -215,8 +224,6 @@ You can run `./deploy.sh --help` to see the detailed help messages.
 
 ## Installing Owl
 
-Owl must be installed on the machine that you also use the `Client` component, they both use the same set of cluster configuration files.
-
 ### Prerequisites
 
 #### Install Gnuplot
@@ -252,29 +259,70 @@ Configure the clusters you want to monitor with owl in `minos/config/owl/collect
     # url for collecotr, usually JMX url
     metric_url=/jmx?qry=Hadoop:*
 
-> **Note:** Some other configurations such as `owl monitor http port` and `opentsdb port` are set in `minos/build/minos_config.py`. You can change the default port for avoiding port conflicts.
+Note: Some other configurations such as `owl monitor http port` and `opentsdb port` are set in `minos/build/minos_config.py`. You can change the default port for port conflicts.
 
-### Start Owl
+### Run Owl
 
     cd minos
-    ./build.sh start owl --local_ip ${your_local_ip}
+    ./build.sh start owl --local_ip x.x.x.x
 
-After starting Owl, you can access the web interface of the Owl.  For example, if Owl listens on port 8088, and the machine's IP address is 192.168.1.11, you can access the following URL to view the Owl web interface:
+When starting owl, the argument `local_ip` is necessary especially you have multiple network cards. The `local_ip` will be used for making opentsdb address. Actually, if you chose to use a remote mysql server, it also would be used to set access for owl database.
+
+After starting Owl on the destination machine, you can access the web interface of the Owl.  For example, suppose the default port is 8088, and the machine's ip is 192.168.1.11, you can access the following URL to view the processes monitored by Owl:
 
     http://192.168.1.11:8088/
 
-### Stop Owl
+Note: If you want to monitor the quota status, you can start owl with `--quota_updater`.
+
+### Stop Owl.
 
     ./build.sh stop owl
 
+### Attention
+
+All the arguments need to specify are required for building the component when you firstly start one. After that, there is no longer required whenever you start/stop it.
+
+### Using a real HBase cluster in Owl
+
+If you want to use a real hbase cluster, you can build and start owl with `--skip_setup_hbase` to skip setup the default stand-alone hbase. Besides, some other work needs to do for deploying your opentsdb.
+
+#### Create hbase table
+
+    cd minos/build/download/opentsdb
+    env COMPRESSION=NONE HBASE_HOME=path/to/hbase-cluster ./src/create_table.sh
+
+In regard to the path to your real hbase-cluster, you can use the Client component to pack a usable package such as:
+
+    cd minos/client
+    ./deploy.sh pack hbase $hbase_cluster_name
+
+Then the usable hbase package would be generated at `client/packages/`
+
+#### Start the opentsdb
+
+    cd minos/build/download/opentsdb
+    tsdtmp=${TMPDIR-'/tmp'}/tsd
+    mkdir -p "$tsdtmp"
+    nohup ./build/tsdb tsd --port=4242 --staticroot=build/staticroot --cachedir="$tsdtmp" --zkquorum="$your_zookeeper_quorum" --zkbasedir="/hbase/$hbase_cluster_name" 1>opentsdb.out 2>&1 &
+
+The `zkquorum` is a comma-separated list of hosts serving your zookeeper quorum just like `ip1:port,ip2:port,ip3:port`.
+
+#### Start opentsdb collector
+
+    cd minos/config/opentsdb
+    vim metrics_collector_config.py
+    $opentsdb_extra_args = '--zkquorum=xxx --zkbasedir=xxx'
+    cd ../../opentsdb
+    nohup ./collector.sh &
+
 # FAQ
 
-1. When installing Mysql-python, you may get an error of `_mysql.c:44:23: error: my_config.h: No such file or directory (centos)` or `EnvironmentError: mysql_config not found (ubuntu)`. As mysql_config is part of mysql-devel, installing mysql-devel allows the installation of Mysql-python. So you may need to install it.
+1. When installing Mysql-python, you may get an error of "_mysql.c:44:23: error: my_config.h: No such file or directory (centos)" or "EnvironmentError: mysql_config not found (ubuntu)". As mysql_config is part of mysql-devel, installing mysql-devel allows the installation of Mysql-python. So you may need to install it.
 
         ubuntu: sudo apt-get install libmysqlclient-dev
         centos: sudo yum install mysql-devel
 
-2. When installing twisted, you may get an error of `CompressionError: bz2 module is not available` and compile appears:
+2. When installing twisted, you may get an error of "CompressionError: bz2 module is not available" and compile appears:
 
         Python build finished, but the necessary bits to build these modules were not found:
         _sqlite3           _tkinter           bsddb185
@@ -287,6 +335,4 @@ After starting Owl, you can access the web interface of the Owl.  For example, i
 
 3. When setting up the stand-alone hbase on Ubuntu, you may fail to start it because of the `/etc/hosts` file. You can refer to <http://hbase.apache.org/book/quickstart.html#ftn.d2907e114> to fix the problem.
 
-4. When using the Minos client to install a service package, if you get an error of `socket.error: [Errno 101] Network is unreachable`, please check your tank server configuration in `deploy.cfg` file, you might miss it.
-
-> **Note:** See [Minos Wiki](https://github.com/XiaoMi/minos/wiki) for more advanced features.
+4. When using the Minos client to install a service package, if you get an error of "socket.error: [Errno 101] Network is unreachable", please check your tank server configuration in `deploy.cfg` file, you might miss it.
