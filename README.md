@@ -17,7 +17,7 @@ The Minos system contains the following four components:
 
 ## Client
 
-This is the command line client tool used to deploy and manage processes of various systems. You can use this client to perform various deployment tasks, e.g. installing, (re)starting, stopping a service.  Currently, this client supports ZooKeeper, HDFS, HBase, YARN and Impala.  It can be extended to support other systems. You can refer to the following [Using Client](#Using Client) to learn how to use it.
+This is the command line client tool used to deploy and manage processes of various systems. You can use this client to perform various deployment tasks, e.g. installing, (re)starting, stopping a service.  Currently, this client supports ZooKeeper, HDFS, HBase, YARN and Impala.  It can be extended to support other systems. You can refer to the following `Using Client` to learn how to use it.
 
 ## Owl
 
@@ -62,7 +62,7 @@ All the Components of Minos run with its own virtual environment. So, before usi
     cd minos
     ./build.sh build
 
-Note: If you only use the Client component on your current machine, this operation is enough, then you can refer to `Using Client` to learn how to deploy and manage a cluster. If you want to use the current machine as a Tank server, you can refer to `Installing Tank` to learn how to do that. Similarly, if you want to use the current machine as a Owl server or a Supervisor server, you can refer to `Installing Owl` and `Installing Supervisor` respectively.
+> **Note:** If you only use the Client component on your current machine, this operation is enough, then you can refer to `Using Client` to learn how to deploy and manage a cluster. If you want to use the current machine as a Tank server, you can refer to `Installing Tank` to learn how to do that. Similarly, if you want to use the current machine as a Owl server or a Supervisor server, you can refer to `Installing Owl` and `Installing Supervisor` respectively.
 
 ## Installing Tank
 
@@ -71,7 +71,7 @@ Note: If you only use the Client component on your current machine, this operati
     cd minos
     ./build.sh start tank --tank_ip ${your_local_ip} --tank_port ${port_tank_will_listen}
 
-Note: If you do not specify the `tank_ip` and `tank_port`, it will start tank server using `0.0.0.0` on `8000` port.
+> **Note:** If you do not specify the `tank_ip` and `tank_port`, it will start tank server using `0.0.0.0` on `8000` port.
 
 ### Stop Tank
 
@@ -120,7 +120,7 @@ We configure crashmail as an auto-started process.  It will start working automa
     stderr_logfile=crashmailbatch.stderr
     autostart=true
 
-Note: The related configuration information such as the server `port` or `username` is set in `minos/build/template/supervisord.conf.tmpl`, if you don't want to use the default value, change it.
+> **Note:** The related configuration information such as the server `port` or `username` is set in `minos/build/template/supervisord.conf.tmpl`, if you don't want to use the default value, change it.
 
 
 ## Using Client
@@ -250,7 +250,7 @@ Configure the clusters you want to monitor with owl in `minos/config/owl/collect
     # url for collecotr, usually JMX url
     metric_url=/jmx?qry=Hadoop:*
 
-Note: Some other configurations such as `owl monitor http port` and `opentsdb port` are set in `minos/build/minos_config.py`. You can change the default port for avoiding port conflicts.
+> **Note:** Some other configurations such as `owl monitor http port` and `opentsdb port` are set in `minos/build/minos_config.py`. You can change the default port for avoiding port conflicts.
 
 ### Start Owl
 
