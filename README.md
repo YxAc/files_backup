@@ -287,4 +287,4 @@ After starting Owl, you can access the web interface of the Owl.  For example, i
 
 4. When using the Minos client to install a service package, if you get an error of `socket.error: [Errno 101] Network is unreachable`, please check your tank server configuration in `deploy.cfg` file, you might miss it.
 
-Note: More advanced features, see the Minos wiki <https://github.com/XiaoMi/minos/wiki>
+<i class="icon-folder-open"></i>" Note: More advanced features, see the Minos wiki <https://github.com/XiaoMi/minos/wiki>
