@@ -17,7 +17,7 @@ The Minos system contains the following four components:
 
 ## Client
 
-This is the command line client tool used to deploy and manage processes of various systems. You can use this client to perform various deployment tasks, e.g. installing, (re)starting, stopping a service.  Currently, this client supports ZooKeeper, HDFS, HBase, YARN and Impala.  It can be extended to support other systems. You can refer to the following `Using Client` to learn how to use it.
+This is the command line client tool used to deploy and manage processes of various systems. You can use this client to perform various deployment tasks, e.g. installing, (re)starting, stopping a service.  Currently, this client supports ZooKeeper, HDFS, HBase, YARN and Impala.  It can be extended to support other systems. You can refer to the following [Using Client](#Using Client) to learn how to use it.
 
 ## Owl
 
@@ -287,4 +287,4 @@ After starting Owl, you can access the web interface of the Owl.  For example, i
 
 4. When using the Minos client to install a service package, if you get an error of `socket.error: [Errno 101] Network is unreachable`, please check your tank server configuration in `deploy.cfg` file, you might miss it.
 
-<i class="icon-folder-open"></i>" Note: More advanced features, see the Minos wiki <https://github.com/XiaoMi/minos/wiki>
+> **Note:** See [Minos Wiki](https://github.com/XiaoMi/minos/wiki) for more advanced features.
