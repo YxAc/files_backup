@@ -4,6 +4,23 @@
 
 Minos supports building Client and installing Tank, Supervisor offline if your production machines cannot connect the internet.
 
+### Download the required python lib tarballs
+
+Download the following source tarballs to save in ${your_offline_package_directory}
+
+    configobj>=4.7.2 from <https://pypi.python.org/pypi/configobj/>
+    django>=1.5.5 from <https://www.djangoproject.com/>
+    meld3>=0.6.10 from <https://pypi.python.org/pypi/meld3>
+    elementtree>=1.2.6-20050316 from <http://effbot.org/downloads#elementtree>
+    pexpect>=3.0 from <https://pypi.python.org/pypi/pexpect/>
+
+### Build Minos offline
+
+    cd minos
+    ./build.sh build --offline --package_dir ${your_offline_package_directory}
+
+Then you can refer to `Installing Tank` and `Installing Supervisor` to learn how to install them.
+
 ## Using quota_updater in Owl
 
 ### Configure quota reportor
