@@ -1,5 +1,9 @@
 # Advanced Features for Minos
 
+## Build Minos and Install Tank, Supervisor offline
+
+Minos supports building Client and installing Tank, Supervisor offline if your production machines cannot connect the internet.
+
 ## Using quota_updater in Owl
 
 ### Configure quota reportor

@@ -280,8 +280,8 @@ After starting Owl, you can access the web interface of the Owl.  For example, i
 
   Then, you may need to install bz2 and sqlite3 such as
 
-        sudo apt-get install libbz2-dev
-        sudo apt-get install libsqlite3-dev
+      sudo apt-get install libbz2-dev
+      sudo apt-get install libsqlite3-dev
 
 3. When setting up the stand-alone hbase on Ubuntu, you may fail to start it because of the `/etc/hosts` file. You can refer to <http://hbase.apache.org/book/quickstart.html#ftn.d2907e114> to fix the problem.
 
