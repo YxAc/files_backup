@@ -6,7 +6,7 @@ Minos supports building Client and installing Tank, Supervisor offline if your p
 
 ### Download the required python lib tarballs
 
-Download the following source tarballs to save in ${your_offline_package_directory}
+Download the following source tarballs to save in `${your_offline_package_directory}`
 
     configobj>=4.7.2 from <https://pypi.python.org/pypi/configobj/>
     django>=1.5.5 from <https://www.djangoproject.com/>
