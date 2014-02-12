@@ -156,31 +156,31 @@ To set up a ZooKeeper cluster, just do the following two steps:
 * Install a ZooKeeper package to the tank server:
 
         cd minos/client
-        ./deploy.sh install zookeeper dptst
+        ./deploy install zookeeper dptst
 
 * Bootstrap the cluster, this is only needed once when the cluster is setup for the first time:
 
-        ./deploy.sh bootstrap zookeeper dptst
+        ./deploy bootstrap zookeeper dptst
 
 Here are some handy ways to manage the cluster:
 
 * Show the status of the ZooKeeper service:
 
-        ./deploy.sh show zookeeper dptst
+        ./deploy show zookeeper dptst
 
 * Start/Stop/Restart the ZooKeeper cluster:
 
-        ./deploy.sh stop zookeeper dptst
-        ./deploy.sh start zookeeper dptst
-        ./deploy.sh restart zookeeper dptst
+        ./deploy stop zookeeper dptst
+        ./deploy start zookeeper dptst
+        ./deploy restart zookeeper dptst
 
 * Clean up the ZooKeeper cluster:
 
-        ./deploy.sh cleanup zookeeper dptst
+        ./deploy cleanup zookeeper dptst
 
 * Rolling update the ZooKeeper cluster:
 
-        ./deploy.sh rolling_update zookeeper dptst
+        ./deploy rolling_update zookeeper dptst
 
 #### Configuring HDFS
 
@@ -192,23 +192,23 @@ You can edit `hdfs-dptst-example.cfg` under the `config/conf/hdfs` directory to 
 
 Setting up and managing an HDFS cluster is similar to setting up and managing a ZooKeeper cluster.  The only difference is the cluster name, `dptst-example`, which implies that the corresponding ZooKeeper cluster is `dptst`:
 
-    ./deploy.sh install hdfs dptst-example
-    ./deploy.sh bootstrap hdfs dptst-example
-    ./deploy.sh show hdfs dptst-example
-    ./deploy.sh stop hdfs dptst-example
-    ./deploy.sh start hdfs dptst-example
-    ./deploy.sh restart hdfs dptst-example
-    ./deploy.sh rolling_update hdfs dptst-example --job=datanode
-    ./deploy.sh cleanup hdfs dptst-example
+    ./deploy install hdfs dptst-example
+    ./deploy bootstrap hdfs dptst-example
+    ./deploy show hdfs dptst-example
+    ./deploy stop hdfs dptst-example
+    ./deploy start hdfs dptst-example
+    ./deploy restart hdfs dptst-example
+    ./deploy rolling_update hdfs dptst-example --job=datanode
+    ./deploy cleanup hdfs dptst-example
 
 #### Shell
 
 The client tool also supports a very handy command named `shell`.  You can use this command to manage the files on HDFS, tables on HBase, jobs on YARN, etc.  Here are some examples about how to use the `shell` command to perform several different HDFS operations:
 
-    ./deploy.sh shell hdfs dptst-example dfs -ls /
-    ./deploy.sh shell hdfs dptst-example dfs -mkdir /test
-    ./deploy.sh shell hdfs dptst-example dfs -rm -R /test
-You can run `./deploy.sh --help` to see the detailed help messages.
+    ./deploy shell hdfs dptst-example dfs -ls /
+    ./deploy shell hdfs dptst-example dfs -mkdir /test
+    ./deploy shell hdfs dptst-example dfs -rm -R /test
+You can run `./deploy --help` to see the detailed help messages.
 
 
 ## Installing Owl
@@ -250,12 +250,12 @@ Configure the clusters you want to monitor with owl in `minos/config/owl/collect
     # url for collecotr, usually JMX url
     metric_url=/jmx?qry=Hadoop:*
 
-> **Note:** Some other configurations such as `owl monitor http port` and `opentsdb port` are set in `minos/build/minos_config.py`. You can change the default port for avoiding port conflicts.
+> **Note:** Some other configurations such as and `opentsdb port` is set in `minos/build/minos_config.py`. You can change the default port for avoiding port conflicts.
 
 ### Start Owl
 
     cd minos
-    ./build.sh start owl --local_ip ${your_local_ip}
+    ./build.sh start owl --owl_ip ${your_local_ip} --owl_port ${port_owl_monitor_will_listen}
 
 After starting Owl, you can access the web interface of the Owl.  For example, if Owl listens on port 8088, and the machine's IP address is 192.168.1.11, you can access the following URL to view the Owl web interface:
 
