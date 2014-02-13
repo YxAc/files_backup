@@ -8,10 +8,10 @@ Minos is a distributed deployment and monitoring system.  It was initially devel
 
 The Minos system contains the following four components:
 
-1. Client
-2. Owl
-3. Supervisor
-4. Tank
+* [Client](#client)
+* [Owl](#owl)
+* [Supervisor](#supervisor)
+* [Tank](#tank)
 
 <img src="minos_structure.png" width="800" height="490"></img>
 
