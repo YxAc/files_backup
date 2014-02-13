@@ -17,11 +17,11 @@ The Minos system contains the following four components:
 
 ## Client
 
-This is the command line client tool used to deploy and manage processes of various systems. You can use this client to perform various deployment tasks, e.g. installing, (re)starting, stopping a service.  Currently, this client supports ZooKeeper, HDFS, HBase, YARN and Impala.  It can be extended to support other systems. You can refer to the following `Using Client` to learn how to use it.
+This is the command line client tool used to deploy and manage processes of various systems. You can use this client to perform various deployment tasks, e.g. installing, (re)starting, stopping a service.  Currently, this client supports ZooKeeper, HDFS, HBase, YARN and Impala.  It can be extended to support other systems. You can refer to the following [Using Client](#using-client) to learn how to use it.
 
 ## Owl
 
-This is the dashboard system to display the status of all processes, where users can take a overview of the whole clusters managed by Minos. It collects data from servers through JMX interface. And it organizes pages in cluster, job and task corresponding to the definition in cluster configuration. It also provides some utils like health alerter, HDFS quota updater and quota reportor. You can refer to `Installing Owl` to learn how to install and use it.
+This is the dashboard system to display the status of all processes, where users can take a overview of the whole clusters managed by Minos. It collects data from servers through JMX interface. And it organizes pages in cluster, job and task corresponding to the definition in cluster configuration. It also provides some utils like health alerter, HDFS quota updater and quota reportor. You can refer to [Installing Owl](#installing-owl) to learn how to install and use it.
 
 ## Supervisor
 
@@ -29,11 +29,11 @@ This is the process management and monitoring system. [Supervisor](http://superv
 
 Based on the version of supervisor-3.0b1, we extended Supervisor to support Minos. We implemented an RPC interface under the `deployment` directory, so that our deploy client can invoke the services supplied by supervisord.
 
-When deploying a Hadoop cluster for the first time, you need to set up `supervisord` on every production machine. This only needs to be done once. You can refer to `Installing Supervisor` to learn how to install and use it.
+When deploying a Hadoop cluster for the first time, you need to set up `supervisord` on every production machine. This only needs to be done once. You can refer to [Installing Supervisor](#installing-supervisor) to learn how to install and use it.
 
 ## Tank
 
-This is a simple package management Django app server for our deployment tool. When setting up a cluster for the first time, you should set up a tank server first. This also needs to be done only once. You can refer to `Installing Tank` to learn how to install and use it.
+This is a simple package management Django app server for our deployment tool. When setting up a cluster for the first time, you should set up a tank server first. This also needs to be done only once. You can refer to [Installing Tank](#installing-tank) to learn how to install and use it.
 
 # Setting Up Minos on Centos/Ubuntu
 
@@ -62,7 +62,7 @@ All the Components of Minos run with its own virtual environment. So, before usi
     cd minos
     ./build.sh build
 
-> **Note:** If you only use the Client component on your current machine, this operation is enough, then you can refer to `Using Client` to learn how to deploy and manage a cluster. If you want to use the current machine as a Tank server, you can refer to `Installing Tank` to learn how to do that. Similarly, if you want to use the current machine as a Owl server or a Supervisor server, you can refer to `Installing Owl` and `Installing Supervisor` respectively.
+> **Note:** If you only use the Client component on your current machine, this operation is enough, then you can refer to [Using Client](#using-client) to learn how to deploy and manage a cluster. If you want to use the current machine as a Tank server, you can refer to [Installing Tank](#installing-tank) to learn how to do that. Similarly, if you want to use the current machine as a Owl server or a Supervisor server, you can refer to [Installing Owl](#installing-owl) and [Installing Supervisor](#installing-supervisor) respectively.
 
 ## Installing Tank
 
@@ -81,7 +81,7 @@ All the Components of Minos run with its own virtual environment. So, before usi
 
 ### Prerequisites
 
-Make sure you have intstalled `Tank` on one of the production machines.
+Make sure you have intstalled [Tank](#tank) on one of the production machines.
 
 ### Start Supervisor
 
@@ -127,7 +127,7 @@ We configure crashmail as an auto-started process.  It will start working automa
 
 ### Prerequisites
 
-Make sure you have intstalled `Tank` and `Supervisor` on your production machines.
+Make sure you have intstalled [Tank](#tank) and [Supervisor](#supervisor) on your production machines.
 
 ### A Simple Tutorial
 
@@ -213,7 +213,7 @@ You can run `./deploy --help` to see the detailed help messages.
 
 ## Installing Owl
 
-Owl must be installed on the machine that you also use the `Client` component, they both use the same set of cluster configuration files.
+Owl must be installed on the machine that you also use the [Client](#client) component, they both use the same set of cluster configuration files.
 
 ### Prerequisites
 
